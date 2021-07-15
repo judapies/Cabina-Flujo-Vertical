@@ -1,0 +1,3 @@
+>>> Warning 202 "Cabina_PCR.c" Line 38(125,131): Variable never used:   flagmv
+      Memory usage:   ROM=39%      RAM=8% - 10%
+      0 Errors,  1 Warnings.

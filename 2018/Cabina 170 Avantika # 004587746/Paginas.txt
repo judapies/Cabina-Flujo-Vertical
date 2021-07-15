@@ -1,0 +1,7 @@
+http://pitando.net/2016/03/31/ejecuta-programas-al-inicio-de-tu-raspberry-pi/
+
+http://blog.sheasilverman.com/2013/09/adding-a-startup-movie-to-your-raspberry-pi/
+
+https://www.edv-huber.com/index.php/problemloesungen/15-custom-splash-screen-for-raspberry-pi-raspbian
+
+https://openhardware.pe/raspberry-pi-ejecucion-de-programas-en-el-arranque-del-s-o/

@@ -1,0 +1,21 @@
+>>> Warning 202 "CabinaCFLH.c" Line 56(58,66): Variable never used:   DownFlow
+>>> Warning 202 "CabinaCFLH.c" Line 60(80,89): Variable never used:   Temporal1
+>>> Warning 202 "CabinaCFLH.c" Line 62(7,9): Variable never used:   p1
+>>> Warning 202 "CabinaCFLH.c" Line 62(17,19): Variable never used:   p2
+>>> Warning 202 "CabinaCFLH.c" Line 62(27,29): Variable never used:   p3
+>>> Warning 202 "CabinaCFLH.c" Line 62(37,39): Variable never used:   p4
+>>> Warning 202 "CabinaCFLH.c" Line 62(48,50): Variable never used:   p5
+>>> Warning 202 "CabinaCFLH.c" Line 64(26,34): Variable never used:   Decimal1
+>>> Warning 202 "CabinaCFLH.c" Line 65(7,19): Variable never used:   zero_fabrica
+>>> Warning 202 "CabinaCFLH.c" Line 65(26,31): Variable never used:   x_uno
+>>> Warning 202 "CabinaCFLH.c" Line 65(36,44): Variable never used:   densidad
+>>> Warning 202 "CabinaCFLH.c" Line 65(49,53): Variable never used:   Temp
+>>> Warning 202 "CabinaCFLH.c" Line 65(58,63): Variable never used:   TempK
+>>> Warning 202 "CabinaCFLH.c" Line 65(68,70): Variable never used:   Pa
+>>> Warning 202 "CabinaCFLH.c" Line 65(75,78): Variable never used:   Psv
+>>> Warning 202 "CabinaCFLH.c" Line 65(83,84): Variable never used:   f
+>>> Warning 202 "CabinaCFLH.c" Line 65(89,91): Variable never used:   Xv
+>>> Warning 202 "CabinaCFLH.c" Line 65(96,98): Variable never used:   Z1
+>>> Warning 202 "CabinaCFLH.c" Line 65(128,137): Variable never used:   Temporal2
+      Memory usage:   ROM=74%      RAM=20% - 23%
+      0 Errors,  19 Warnings.

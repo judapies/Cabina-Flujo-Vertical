@@ -1,0 +1,226 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004     lcdline
+005     MAIN.Menu
+006     MAIN.n_opcionH
+007     MAIN.n_opcionL
+008     MAIN.unidad
+009     MAIN.Flecha
+00A     MAIN.Flecha1
+00B     MAIN.Flecha2
+00C     MAIN.Velocidad
+00D.0   MAIN.estadouv
+00D.1   MAIN.estadofl
+00D.2   MAIN.estadomv
+00D.3   MAIN.paso
+00D.4   MAIN.Flanco
+00D.5   MAIN.Flanco1
+00D.6   MAIN.Flanco2
+00D.7   MAIN.Flanco3
+00E-010 MAIN.t
+011-014 MAIN.clave
+015-018 MAIN.contrasena
+019     @PSTRINGCN_95.P1
+019     @PRINTF_D_95.P2
+019     lcd_init.i
+019     MAIN.@SCRATCH1
+01A     mensajes.x
+01A     @PRINTF_D_95.P1
+01A     lcd_init.@SCRATCH1
+01A     MAIN.@SCRATCH2
+01A     @PSTRINGCN_95.@SCRATCH1
+01B     mensajes.y
+01B     @PSTRINGCN_95.@SCRATCH2
+01B     @PRINTF_D_95.@SCRATCH1
+01C     @PSTRINGC_95.@SCRATCH1
+01C     @PRINTF_D_95.@SCRATCH2
+01D     @PSTRINGC_95.@SCRATCH2
+01D     @PRINTF_D_95.@SCRATCH3
+01E     @PRINTF_D_95.@SCRATCH4
+01F     @DIV88.P1
+01F     lcd_putc.c
+020     @DIV88.P1
+020     lcd_gotoxy.x
+020     @delay_ms1.P1
+021     lcd_gotoxy.y
+021     @DIV88.@SCRATCH1
+022     lcd_gotoxy.address
+023     lcd_send_byte.address
+024     lcd_send_byte.n
+025     lcd_read_byte.low
+025     lcd_send_byte.@SCRATCH1
+026     lcd_send_nibble.n
+026     lcd_read_byte.high
+027     lcd_read_byte.@SCRATCH1
+F81     lcd
+F83     PSP_DATA
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2_LOW
+FBB     CCP_2
+FBC     CCP_2_HIGH
+FBE     CCP_1
+FBE     CCP_1_LOW
+FBF     CCP_1_HIGH
+FE1-FE2 @READ_PACKED_MEMORY.P1
+FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
+FE9-FEA @WRITE_PACKED_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P3
+FE9-FEA @READ_PACKED_MEMORY.P4
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
+FF6-FF8 @READ_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+0842  @delay_ms1
+0004  LCD_INIT_STRING
+0882  lcd_read_byte
+086A  lcd_send_nibble
+08BA  lcd_send_byte
+08F0  lcd_init
+094A  lcd_gotoxy
+0980  @goto10088
+09A2  lcd_putc
+0B24  mensajes
+0018  @const104
+09F6  @PSTRINGC_95
+002C  @const106
+0040  @const107
+0054  @const108
+0B8C  MAIN
+0068  @const111
+007E  @const112
+0094  @const113
+00AA  @const114
+00C0  @const135
+00D6  @const136
+00EC  @const137
+0A16  @PSTRINGCN_95
+0A34  @DIV88
+0A5C  @PRINTF_D_95
+0102  @const148
+0118  @const149
+012E  @const150
+0144  @const151
+015A  @const153
+0170  @const154
+0186  @const155
+019C  @const156
+01B2  @const158
+01C8  @const160
+01DE  @const161
+01F4  @const162
+0200  @const163
+020E  @const164
+0224  @const165
+023A  @const166
+0250  @const167
+0266  @const168
+027C  @const169
+0292  @const170
+02A8  @const171
+02BE  @const172
+02D4  @const173
+02EA  @const174
+0300  @const175
+0316  @const176
+032C  @const177
+0342  @const178
+0358  @const179
+036E  @const181
+0384  @const182
+039A  @const183
+03A6  @const184
+03B2  @const185
+03C8  @const186
+03DE  @const187
+03F4  @const188
+040A  @const189
+0420  @const190
+0436  @const191
+044C  @const192
+0462  @const193
+0478  @const194
+048E  @const195
+04A4  @const196
+04BA  @const197
+04D0  @const198
+04E6  @const199
+04FC  @const200
+0512  @const202
+0528  @const203
+053E  @const204
+054A  @const205
+0556  @const206
+056C  @const207
+0582  @const208
+0598  @const209
+05AE  @const210
+05C4  @const211
+05DA  @const212
+05F0  @const213
+0606  @const214
+061C  @const215
+0632  @const216
+0648  @const217
+065E  @const218
+0674  @const219
+068A  @const220
+06A0  @const221
+06B6  @const223
+06CC  @const224
+06E2  @const225
+06F8  @const228
+070E  @const229
+0724  @const230
+073A  @const231
+0750  @const233
+0766  @const234
+077C  @const235
+0792  @const236
+07A8  @const238
+07BE  @const239
+07D4  @const240
+07EA  @const243
+0800  @const244
+0816  @const245
+082C  @const246
+0B8C  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    H:\JP\Cabina de Flujo Laminar Vertical\2014\Firmware\
+
+Project Files:
+    Cabina_Flujo_Vertical.c
+    C:\Program Files (x86)\PICC\Devices\18F4550.h
+    LCD420.c
+
+Units:
+    H:\JP\Cabina de Flujo Laminar Vertical\2014\Firmware\Cabina_Flujo_Vertical (main)
+
+Compiler Settings:
+    Processor:      PIC18F4550
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      Cabina_Flujo_Vertical.err
+    Ext Symbols: Cabina_Flujo_Vertical.esym
+    INHX32:      Cabina_Flujo_Vertical.hex
+    Symbols:     Cabina_Flujo_Vertical.sym
+    List:        Cabina_Flujo_Vertical.lst
+    Debug/COFF:  Cabina_Flujo_Vertical.cof
+    Project:     Cabina_Flujo_Vertical.PJT
+    Call Tree:   Cabina_Flujo_Vertical.tre
+    Statistics:  Cabina_Flujo_Vertical.sta

@@ -1,0 +1,15 @@
+>>> Warning 202 "GLCD_Controller.c" Line 8(5,8): Variable never used:   rs232_errors
+>>> Warning 202 "GLCD_Controller.c" Line 87(31,41): Variable never used:   x_cuadrado
+>>> Warning 202 "GLCD_Controller.c" Line 87(46,52): Variable never used:   x_cubo
+>>> Warning 202 "GLCD_Controller.c" Line 88(73,80): Variable never used:   barraIn
+>>> Warning 202 "GLCD_Controller.c" Line 89(7,8): Variable never used:   a
+>>> Warning 202 "GLCD_Controller.c" Line 89(34,35): Variable never used:   b
+>>> Warning 202 "GLCD_Controller.c" Line 89(81,82): Variable never used:   d
+>>> Warning 202 "GLCD_Controller.c" Line 105(6,10): Variable never used:   BITS
+>>> Warning 202 "GLCD_Controller.c" Line 106(7,9): Variable never used:   Ta
+>>> Warning 202 "GLCD_Controller.c" Line 106(10,12): Variable never used:   Tb
+>>> Warning 202 "GLCD_Controller.c" Line 106(13,17): Variable never used:   TICK
+>>> Warning 202 "GLCD_Controller.c" Line 107(6,15): Variable never used:   BIT_START
+>>> Warning 202 "GLCD_Controller.c" Line 107(17,27): Variable never used:   NUEVO_DATO
+      Memory usage:   ROM=56%      RAM=46% - 49%
+      0 Errors,  13 Warnings.

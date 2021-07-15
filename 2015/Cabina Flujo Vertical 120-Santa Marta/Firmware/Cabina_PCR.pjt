@@ -1,0 +1,58 @@
+[Units]
+Count=1
+Link=0
+1=Cabina_PCR.c
+[Documentation]
+Count=1
+1=H:\JP\JP\Laboratorio\Cabina de PCR\Firmware\LCD420.c
+1T=LCD420.c
+1E=
+1W=0
+[Opened Files]
+1=Cabina_PCR.c
+2=
+3=
+4=
+[PROJECT]
+Processor=0x4550
+Processor_Text=PIC18F4550
+Target=Cabina_PCR.hex
+Development_Mode=
+ToolSuite=CCS
+[Directories]
+Include=C:\Program Files (x86)\PICC\devices\;
+Library=
+LinkerScript=
+[defines]
+enabled=0
+D1=
+V1=
+[fileformats]
+forcecoff=0
+debug=4
+error=2
+object=0
+list=0
+scratch=0
+sta=1
+tre=1
+allerrors=1
+allwarnings=1
+stayupne=3
+stayupoe=0
+[Target Data]
+BuildTool=C-COMPILER
+OptionString=+FH
+AdditionalOptionString=
+BuildRequired=1
+[Cabina_PCR.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=Cabina_PCR.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0

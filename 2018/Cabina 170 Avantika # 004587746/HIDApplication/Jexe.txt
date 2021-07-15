@@ -1,0 +1,299 @@
+Introduction
+Java applications are generally run using a Java interpreter like java.exe and javaw.exe from the Java Development Kit (JDK) or jre.exe and jrew.exe from the Java Runtime Environment (JRE). These interpreters are platform-specific since they essentially execute the Java .class files on a target operating system. Executing the application on Windows requires a command line format like the following:
+
+java options package.classname parameters
+You would not generally want to require the user to enter something like this on the command line. How should this be handled? You could create a batch file or a shortcut to execute the command line correctly. However, the executable for your application shown in process lists or task lists will appear as the interpreter (e.g. java.exe).
+
+Another technique is to use the Java Native Interface (JNI) to start the Java Virtual Machine (JVM) and invoke your Java application from your own Windows executable. If your application creates or manages a particular file type, you can then associate the .EXE with that file type in the Windows registry. Users can then double-click the file in Windows Explorer, and Windows will automatically launch your .EXE with that file as a parameter.
+
+This paper will present examples of launching Java applications from a Windows 32-bit executable written in C and utilitizing JNI.
+
+Starting a console application
+A Java console program (one with no GUI) can be started from a Windows executable in many ways. Two techniques are described here. First, the Java interpreter java.exe can be executed internally using the C function, system(). The second method involves instantiating the JVM and invoking the Java application directly.
+
+The following class will simulate the Java application for this example:
+
+
+
+public class MyApp1
+{
+  public static void main( String[] args )
+  {
+    System.out.println( "Hello, world!" );
+  }
+}
+ 
+
+The main method simply outputs a message to the console.
+
+Method 1--calling the interpreter 
+To invoke the above class from a Windows executable, the following C code can be used:
+
+
+
+#include <windows.h>
+#include <stdio.h>
+#define MAIN_CLASS  "MyApp1"
+int main( int argc, char** argv )
+{
+  char* cmdline = malloc( 1024 ); /* big buffer */
+  sprintf( cmdline, "java.exe %s", MAIN_CLASS );
+  system( cmdline );
+  return 0;
+}
+ 
+
+This calls the ANSI C system() method, which executes the Java interpreter in a Windows command shell. The following command line statement is an example of building the above C source into a Windows .EXE using the Microsoft Visual C++ compiler:
+
+cl MyApp.c
+The program requires a console window and will recreate one if the .EXE is executed from Windows Explorer. Any printf's in the C code or System.out.println's in the Java code would show up in the console window.
+
+Method 2--create the JVM 
+Another method to launch a Java application is to create the Java Virtual Machine (JVM), load the Java class containing the main method, and invoke the main method. Here is the code for MyApp.c.
+
+
+
+#include <windows.h>
+#include <stdio.h>
+#include <jni.h>
+#define MAIN_CLASS  "MyApp1"
+int main( int argc, char** argv )
+{
+  JNIEnv*        env;
+  JavaVM*        jvm;
+  JDK1_1InitArgs vmargs;
+  jint           rc;
+  jclass         cls;
+  jmethodID      mainId;
+  /* get CLASSPATH environment variable setting */
+  char* szClasspath = getenv( "CLASSPATH" );
+  vmargs.version = 0x00010001;  /* version 1.1 */
+  JNI_GetDefaultJavaVMInitArgs( &vmargs );  /* init vmargs */
+  /* the classpath returned by JNI_GetDefaultJavaVMInitArgs is wrong */
+  vmargs.classpath = szClasspath;
+  rc = JNI_CreateJavaVM( &jvm, &env, &vmargs );  /* create JVM */
+  if( rc < 0 )
+  {
+    printf("Can't create Java VM\n");
+    return 1;
+  }
+  /* load the class containing the static main() method */
+  cls = (*env)->FindClass( env, MAIN_CLASS );
+  if( cls == 0 )
+  {
+    printf( "Could not find class %s\n", MAIN_CLASS );
+    return 1;
+  }
+  /* find the main() method */
+  mainId = (*env)->GetStaticMethodID(env, cls, "main", "([Ljava/lang/String;)V");
+  if( mainId == 0 )
+  {
+    printf( "Could not find main()\n" );
+    return 1; /* error */
+  }
+  (*env)->CallStaticVoidMethod(env, cls, mainId, 0); /* call main() */
+  (*jvm)->DestroyJavaVM( jvm );  /* kill JVM */
+  return 0;
+}
+ 
+
+To create the JVM, a JDK1_1InitArgs structure is required. This structure contains members that match the parameters for the Java interpreter java.exe (see its definition in the jni.h header file in the JDK include directory). Default values can be set using the JNI_GetDefaultJavaVMInitArgs method. Unfortunately, in the JDK version we are currently using, the classpath member is not initialized correctly. The CLASSPATH environment variable is read directly using the Windows API getenv and set into the vmargs.classpath member. Next, the JVM is created by calling JNI_CreateJavaVM. The method also initializes the JNIEnv parameter env, which is needed for the other JNI APIs. Using the env variable, the main class is loaded by calling FindClass, which returns a jclass. The GetStaticMethodID is called specifying the method signature for:
+
+public static void main( String[] args )
+This method is identified by the "main" parameter and the "([Ljava/lang/String;)V" parameter. The latter is a JNI Specification format identifying the method as accepting a String array and returning void. See the JNI Specification for more information on this format.
+
+Once the method ID is obtained, the method can be invoked by calling CallStaticVoidMethod. This will not return until the Java application is finished. The JVM can be freed by calling DestroyJavaVM.
+
+The .EXE can be created from this C source by using the following compile statement:
+
+
+
+cl -Ic:\jdk1.1.6\include -Ic:\jdk1.1.6\include\win32 -MT MyApp.c c:\jdk1.1.6\lib\javai.lib
+ 
+
+Using the JNI methods requires linking to the javai.lib found in the LIB directory of the installed JDK. The resulting MyApp.exe can be executed from a Windows command line to see the following result:
+
+Note that this .EXE also requires a console window. All stdout and stderr output will appear in the console window.
+
+Starting a GUI application
+Starting a windows or GUI Java application uses the same methods above but imposes some restrictions. If the techniques from the previous section are used to start a GUI Java application, a console window is required and remains for the life of the Java program. This is fairly annoying and can be somewhat confusing to the users of your application. The example presented here will show the changes required to the previous example to create an executable without a console window.
+
+The following will simulate a GUI Java application.
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+public class MyApp2 extends Frame
+{
+  public MyApp2()
+  {
+    super( "My Java App" );
+    add( new Label("Hello, world!") );
+  }
+  public static void main( String[] args )
+  {
+    MyApp2 frame = new MyApp2();
+    frame.addWindowListener( new WindowAdapter()
+    {
+      public void windowClosing(WindowEvent e) {System.exit(0);}
+    });
+    frame.setSize(200,200);
+    frame.setVisible(true);
+  }
+}
+ 
+
+This creates a simple frame window in the upper left corner of the screen containing the "Hello, world!" message.
+
+ 
+
+You can see this application work immediately by changing the following line in the C source in the previous example from:
+
+#define MAIN_CLASS "MyApp1"
+to:
+
+#define MAIN_CLASS "MyApp2"
+and rebuilding the MyApp.exe.
+
+Now when the MyApp.exe is executed from Windows Explorer, a console window is still created. To change the .EXE to execute like a Windows application, the C source is changed to the following:
+
+
+
+#include <windows.h>
+#include <stdio.h>
+#include <jni.h>
+#define MAIN_CLASS  "MyApp2"
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+  JNIEnv*        env;
+  JavaVM*        jvm;
+  JDK1_1InitArgs vmargs;
+  jint           rc;
+  jclass         cls;
+  jmethodID      mainId;
+  /* get CLASSPATH environment variable setting */
+  char* szClasspath = getenv( "CLASSPATH" );
+  vmargs.version = 0x00010001;  /* version 1.1 */
+  JNI_GetDefaultJavaVMInitArgs( &vmargs ); /* init vmargs */
+  /* the classpath returned by JNI_GetDefaultJavaVMInitArgs is wrong */
+  vmargs.classpath = szClasspath;
+  rc = JNI_CreateJavaVM( &jvm, &env, &vmargs );  /* create the JVM */
+  if( rc &lt; 0 )
+    return 1;
+  /* load the class containing the static main() method */
+  cls = (*env)->FindClass( env, MAIN_CLASS );
+  if( cls == 0 )
+    return 1;
+  /* find the main() method */
+  mainId = (*env)->GetStaticMethodID(env, cls, "main", "([Ljava/lang/String;)V");
+  if( mainId == 0 )
+    return 1; /* error */
+  (*env)->CallStaticVoidMethod(env, cls, mainId, 0); /* call main() */
+  (*jvm)->DestroyJavaVM( jvm ); /* kill the JVM */
+  return 0;
+}
+ 
+
+Essentially, the main is changed to WinMain making the .EXE a Windows application instead of a console program. Also note the printf's are removed. This is because console output will not appear in a Windows application. The compile statement is the same as in the previous example:
+
+
+
+ cl -Ic:\jdk1.1.6\include -Ic:\jdk1.1.6\include\win32 -MT MyApp.c c:\jdk1.1.6\lib\javai.lib
+ 
+
+When the MyApp.exe is executed from Windows Explorer, the console window no longer appears.
+
+Passing parameters to main
+This example expands on the previous to include code necessary to pass parameters to a Java application. The example will accept command line parameters and display them in the Label of the Frame of the Java application. First, the Java code is written to show the argument strings.
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+public class MyApp3 extends Frame
+{
+  public MyApp3( String[] msgs )
+  {
+    super( "My Java App" );
+    Label label = new Label();
+    String labelMsg = new String();
+    for( int i=0; i < msgs.length; i++ )
+      labelMsg += msgs[i] + " ";
+    label.setText( labelMsg );
+    add( label );
+  }
+  public static void main( String[] args )
+  {
+    MyApp3 frame = new MyApp3( args );
+    frame.addWindowListener( new WindowAdapter()
+    {
+      public void windowClosing(WindowEvent e) {System.exit(0);}
+    });
+    frame.setSize(200,200);
+    frame.setVisible(true);
+  }
+}
+ 
+
+The application can be tested by executing it with the java.exe interpreter:
+
+java MyApp3 First second last
+This shows the frame window with the string parameters.
+
+
+
+
+Passing parameters to the Java class's main from C requires creating a String array from the parameters and passing it to CallStaticVoidMethod. The following code snippet can be added to the C code from the previous example replacing the CallStaticVoidMethod line.
+
+
+
+  /* setup the parameters to pass to main() */
+  {
+    jstring        str;
+    jobjectArray   args;
+    int i=0;
+    args = (*env)->NewObjectArray(env, __argc-1, (*env)->FindClass(env,
+                                  "java/lang/String"), 0);
+    for( i=1; i<__argc; i++ )
+    {
+      str = (*env)->NewStringUTF( env, __argv[i] );
+      (*env)->SetObjectArrayElement(env, args, i-1, str);
+    }
+    (*env)->CallStaticVoidMethod(env, cls, mainId, args); /* call main() */
+  }
+ 
+
+The __argc and __argv variables are convenient for accessing the command line parameters in a WinMain.EXE and are equivalent to argc and argv in a regular main.EXE. Also, the define MAIN_CLASS preprocessor statement is updated for the new class, MyApp3.
+
+The MyApp.exe is built using the same compile statement as in the previous examples. If MyApp.exe is executed from a Windows command line, any parameters are displayed in the Java window.
+
+Other information
+This section contains some extra information about creating a Windows .EXE for a Java application that was not covered in the simple examples above.
+
+Package names 
+In the examples above, the main Java class did not have a package name. Package names are used by the programmer to group classes together logically. They are specified in the Java source using the package statement. If the Java class you are launching has a package name, it must be fully qualified when launching the Java application. In Method 1--calling the interpreter, the class name can be specified as
+
+
+
+#define MAIN_CLASS  "packagename.MyApp1" 
+#define MAIN_CLASS  "packagename/MyApp1"
+ 
+
+The period or forward-slash are acceptable for package name delimeters. However, for the other examples using a JVM and JNI methods, only the forward-slash package name will work.
+
+JNI methods and C++ 
+The above examples show using the JNI methods in a C source file. If C++ is used, the methods change from this format:
+
+(*env)->JNIMethod( env, .... );
+to this format:
+
+env->JNIMethod( ... );
+In C++, the JNI functions are treated as member methods of a JNIEnv class.
+
+Strings and national language support 
+The techniques used in this paper used the UTF methods for converting strings. These methods are for convenience only and will not work if the application requires national language support (NLS). For the proper way to handle Java strings in Windows and in an NLS environment, see the paper titled NLS Strings and JNI.
+
+Summary
+This paper presented examples for creating a Windows executable (.EXE file) to launch a Java application. Examples including using the Java Native Interface (JNI) to invoke and pass parameters to the Java static main method. The JNI technique allows the application to start without a console window like a native Windows application. See the Java Native Interface Specification available from Sun Microsystems for more information on JNI.
+

@@ -1,0 +1,3 @@
+>>> Warning 202 "Cabina_Flujo_Vertical.c" Line 106(80,89): Variable never used:   Velocidad
+      Memory usage:   ROM=26%      RAM=0% - 2%
+      0 Errors,  1 Warnings.

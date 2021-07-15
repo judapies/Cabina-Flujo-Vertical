@@ -1,0 +1,22 @@
+We want to execute the main method in the class MyClass in the package MyPackage when we run the JAR file. 
+We first create a text file named Manifest.txt with the following contents: 
+
+Main-Class: MyPackage.MyClass
+
+
+
+--------------------------------------------------------------------------------
+Warning : The text file must end with a new line or carriage return. The last line will not be parsed properly if it does not end with a new line or carriage return. 
+--------------------------------------------------------------------------------
+
+We then create a JAR file named MyJar.jar by entering the following command: 
+jar cfm MyJar.jar Manifest.txt MyPackage/*.class
+
+This creates the JAR file with a manifest with the following contents: 
+Manifest-Version: 1.0
+Created-By: 1.6.0 (Sun Microsystems Inc.)
+Main-Class: MyPackage.MyClass
+
+When you run the JAR file with the following command, the main method of MyClass executes: 
+java -jar MyJar.jar
+

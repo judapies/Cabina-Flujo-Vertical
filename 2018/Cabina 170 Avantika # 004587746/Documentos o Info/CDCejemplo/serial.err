@@ -1,0 +1,14 @@
+>>> Warning 203 "C:\Users\maria consuelo\Desktop\CDCejemplo\pic18_usb.c" Line 531(1,1): Condition always TRUE
+>>> Warning 216 "serial.c" Line 112(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
+>>> Warning 216 "serial.c" Line 112(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
+>>> Warning 216 "serial.c" Line 112(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_cdc_flush_out_buffer)
+>>> Warning 216 "serial.c" Line 112(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_flush_out)
+>>> Warning 202 "serial.c" Line 18(7,20): Variable never used:   valor_digital
+>>> Warning 202 "serial.c" Line 19(7,22): Variable never used:   valor_analogico
+>>> Warning 202 "serial.c" Line 21(6,13): Variable never used:   control
+>>> Warning 202 "serial.c" Line 21(23,24): Variable never used:   i
+>>> Warning 202 "serial.c" Line 21(27,28): Variable never used:   j
+>>> Warning 202 "serial.c" Line 21(33,34): Variable never used:   h
+>>> Warning 202 "serial.c" Line 23(6,12): Variable never used:   datoRx
+      Memory usage:   ROM=15%      RAM=22% - 25%
+      0 Errors,  12 Warnings.

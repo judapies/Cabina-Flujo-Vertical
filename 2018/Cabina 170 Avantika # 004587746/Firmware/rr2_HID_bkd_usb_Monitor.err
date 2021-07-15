@@ -1,0 +1,24 @@
+>>> Warning 203 "H:\JP\JP\Laboratorio\Cabina de Flujo Laminar Vertical\2018\Cabina Avantika # 0045877XX\Firmware\pic18_usb.c" Line 531(1,1): Condition always TRUE
+>>> Warning 216 "rr2_HID_bkd_usb_Monitor.c" Line 386(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_token_reset)
+>>> Warning 216 "rr2_HID_bkd_usb_Monitor.c" Line 386(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_flush_out)
+>>> Warning 216 "rr2_HID_bkd_usb_Monitor.c" Line 386(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_tbe)
+>>> Warning 216 "rr2_HID_bkd_usb_Monitor.c" Line 386(0,1): Interrupts disabled during call to prevent re-entrancy:  (usb_flush_in)
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(55,63): Variable never used:   tiempos2
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(66,73): Variable never used:   flancou
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(77,84): Variable never used:   flancod
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(87,94): Variable never used:   flancor
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(97,104): Variable never used:   flancol
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(107,114): Variable never used:   flancom
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(117,124): Variable never used:   flancob
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(127,134): Variable never used:   flancov
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 76(137,144): Variable never used:   flancot
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(15,23): Variable never used:   flancoud
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(26,34): Variable never used:   flancodd
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(37,45): Variable never used:   flancord
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(48,56): Variable never used:   flancold
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(59,67): Variable never used:   flancomd
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(70,78): Variable never used:   flancobd
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(81,89): Variable never used:   flancovd
+>>> Warning 202 "rr2_HID_bkd_usb_Monitor.c" Line 77(92,100): Variable never used:   flancotd
+      Memory usage:   ROM=18%      RAM=15% - 16%
+      0 Errors,  22 Warnings.
